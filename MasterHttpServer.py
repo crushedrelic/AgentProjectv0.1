@@ -16,9 +16,9 @@ class MasterHttpServer:
 
                 http_serv.socket = ssl.wrap_socket(http_serv.socket, keyfile="key.pem", certfile="cert.pem",
                                                    server_side=True)  # ssl publish
-
-                http_serv.serve_forever()
                 print("web server running on: https://%s:%s" % (self.hostIP, self.port))
+                http_serv.serve_forever()
+
             except KeyboardInterrupt:
                 print("Keyboard interrupt detected stopping https server...")
                 pass

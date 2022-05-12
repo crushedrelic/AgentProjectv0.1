@@ -10,7 +10,7 @@ from MasterHttpServer import MasterHttpServer
 if __name__ == '__main__':
     hostIP = "localhost"
     port = 8080
-    https = False
+    https = True
     httpserver = MasterHttpServer(hostIP, port, https)
     httpserver.executeServer()
 
