@@ -4,13 +4,16 @@
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
+from MasterHttpServer import MasterHttpServer
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    hostIP = "localhost"
+    port = 8080
+    https = False
+    httpserver = MasterHttpServer(hostIP, port, https)
+    httpserver.executeServer()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+
+
