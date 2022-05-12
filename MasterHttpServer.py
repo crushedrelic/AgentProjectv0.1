@@ -1,12 +1,38 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import ssl
 
-hostname = "localhost"  #serve on localhost
-port = 443              #serve on port 443
 
-http_serv = HTTPServer((hostname,port),BaseHTTPRequestHandler) #create handler on defined socket
+class MasterHttpServer:
+    def __init__(self, hostIP, port, https):
+        self.hostIP = hostIP
+        self.port = port
+        self.https = https
 
-http_serv.socket = ssl.wrap_socket(http_serv.socket, keyfile="key.pem", certfile="cert.pem", server_side=True)  # ssl publish
+    def executeServer(self):
+        http_serv = HTTPServer((self.hostIP, self.port), BaseHTTPRequestHandler)  # create handler on defined socket
 
-http_serv.serve_forever()
+        if self.https:
+            try:
 
+                http_serv.socket = ssl.wrap_socket(http_serv.socket, keyfile="key.pem", certfile="cert.pem",
+                                                   server_side=True)  # ssl publish
+
+                http_serv.serve_forever()
+                print("web server running on: https://%s:%s" % (self.hostIP, self.port))
+            except KeyboardInterrupt:
+                print("Keyboard interrupt detected stopping https server...")
+                pass
+            http_serv.server_close()
+            print("Https server stopped.")
+
+        else:
+            try:
+                print("webserver starting...")
+                print("web server running on: http://%s:%s" % (self.hostIP, self.port))
+                http_serv.serve_forever()
+
+            except KeyboardInterrupt:
+                print("Keyboard interrupt detected stopping http server...")
+                pass
+            http_serv.server_close()
+            print("Http server stopped.")
