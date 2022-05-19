@@ -8,9 +8,9 @@ from MasterHttpServer import MasterHttpServer
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    hostIP = "localhost"
+    hostIP = "192.168.1.19"
     port = 8080
-    https = True
+    https = False
     httpserver = MasterHttpServer(hostIP, port, https)
     httpserver.executeServer()
 

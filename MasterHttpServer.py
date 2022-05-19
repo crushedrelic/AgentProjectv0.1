@@ -1,15 +1,22 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import HTTPServer, SimpleHTTPRequestHandler
 import ssl
 
 
-class MasterHttpServer:
+class MasterHttpServer(SimpleHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header("Content-type:", "text/html")
+        self.end_headers()
+        self.wfile.write("Http Server Running")
+
     def __init__(self, hostIP, port, https):
+
         self.hostIP = hostIP
         self.port = port
         self.https = https
 
     def executeServer(self):
-        http_serv = HTTPServer((self.hostIP, self.port), BaseHTTPRequestHandler)  # create handler on defined socket
+        http_serv = HTTPServer((self.hostIP, self.port), SimpleHTTPRequestHandler)  # create handler on defined socket
 
         if self.https:
             try:
